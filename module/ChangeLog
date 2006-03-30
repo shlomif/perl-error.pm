@@ -1,5 +1,10 @@
 Mar 30 2006 <shlomif@iglu.org.il> (Shlomi Fish)
 
+  Error.pm #0.15002
+  - Fixed http://rt.cpan.org/Public/Bug/Display.html?id=18024 and a related
+  exception thrown because ->isa was called on something that was not
+  certainly an object.
+  
   Error.pm #0.15001
 
   - Moved Error.pm inside the distribution to reside under lib/.

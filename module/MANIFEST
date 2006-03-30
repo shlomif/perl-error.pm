@@ -4,7 +4,8 @@ example
 lib/Error.pm
 Makefile.PL
 MANIFEST
+META.yml                                 Module meta-data (added by MakeMaker)
 README
 t/01throw.t
 t/02order.t
-META.yml                                 Module meta-data (added by MakeMaker)
+t/03throw-non-Error.t
