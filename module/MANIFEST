@@ -1,0 +1,10 @@
+ChangeLog
+Error.ppd
+example
+lib/Error.pm
+Makefile.PL
+MANIFEST
+README
+t/01throw.t
+t/02order.t
+META.yml                                 Module meta-data (added by MakeMaker)
