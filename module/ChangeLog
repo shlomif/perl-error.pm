@@ -1,3 +1,10 @@
+Mar 31 2006 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.15003
+  - Added the lib/Error/Simple.pm module (that just "use"'s Error) so
+    one can say "use base 'Error::Simple';' Added an appropriate test. 
+    Fixes: http://rt.cpan.org/Public/Bug/Display.html?id=17841
+
 Mar 30 2006 <shlomif@iglu.org.il> (Shlomi Fish)
 
   - Added Scalar::Util to the dependencies in Makefile.PL.
