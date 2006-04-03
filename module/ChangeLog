@@ -1,3 +1,9 @@
+Apr 03 2006 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  - Fixed the conversion of textual messages to Error::Simple when
+    they contain information about an open filehandle. (as reported in
+    http://rt.cpan.org/Ticket/Display.html?id=6130 )
+
 Apr 02 2006 <shlomif@iglu.org.il> (Shlomi Fish)
 
   Error.pm #0.15004
