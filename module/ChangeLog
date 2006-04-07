@@ -1,5 +1,11 @@
 Apr 07 2006 <shlomif@iglu.org.il> (Shlomi Fish)
 
+  Error.pm #0.15008
+  - Fixed a test in t/05text-errors-with-file-handles.t to work on 
+    MS Windows due to File::Spec and require inconsistency.
+
+Apr 07 2006 <shlomif@iglu.org.il> (Shlomi Fish)
+
   Error.pm #0.15007
   - Fixed https://rt.cpan.org/Ticket/Display.html?id=3291
 

@@ -32,7 +32,6 @@ eval
     catch MyError::Foo with
     {
         my $err = shift;
-        # TEST
         $ok = 0;
     };
 };
@@ -49,5 +48,5 @@ ok($err->isa("Error::Simple"), "Testing");
 is($err->{-line}, 16, "Testing for correct line number");
 
 # TEST
-is($err->{-file}, File::Spec->catdir(File::Spec->curdir(), "t", "lib", "MyDie.pm"), "Testing for correct module");
+ok(($err->{-file} =~ m{MyDie\.pm$}), "Testing for correct module");
 
