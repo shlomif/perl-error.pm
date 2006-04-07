@@ -15,7 +15,7 @@ use strict;
 use vars qw($VERSION);
 use 5.004;
 
-$VERSION = "0.15005"; 
+$VERSION = "0.15006"; 
 
 use overload (
 	'""'	   =>	'stringify',
@@ -31,6 +31,15 @@ $Error::THROWN = undef;	# last error thrown, a workaround until die $ref works
 
 my $LAST;		# Last error created
 my %ERROR;		# Last error associated with package
+
+sub throw_Error_Simple
+{
+    my $args = shift;
+    return Error::Simple->new($args->{'text'});
+}
+
+$Error::ObjectifyCallback = \&throw_Error_Simple;
+
 
 # Exported subs are defined in Error::subs
 
@@ -271,7 +280,7 @@ sub run_clauses ($$$\@) {
     my($clauses,$err,$wantarray,$result) = @_;
     my $code = undef;
 
-    $err = new Error::Simple($err) unless ref($err);
+    $err = $Error::ObjectifyCallback->({'text' =>$err}) unless ref($err);
 
     CATCH: {
 
@@ -314,8 +323,8 @@ sub run_clauses ($$$\@) {
 			else {
 			    $err = defined($Error::THROWN)
 				    ? $Error::THROWN : $@;
-			    $err = new Error::Simple($err)
-				    unless ref($err);
+                $err = $Error::ObjectifyCallback->({'text' =>$err})
+                    unless ref($err);
 			}
 			last CATCH;
 		    };
@@ -347,8 +356,9 @@ sub run_clauses ($$$\@) {
 	    else {
 		$err = defined($Error::THROWN)
 			? $Error::THROWN : $@;
-		$err = new Error::Simple($err)
-			unless ref($err);
+            
+        $err = $Error::ObjectifyCallback->({'text' =>$err}) 
+            unless ref($err);
 	    }
 	}
     }
@@ -732,9 +742,36 @@ this infomation will be used to set the C<-file> and C<-line> arguments
 of the error object.
 
 This class is used internally if an eval'd block die's with an error
-that is a plain string.
+that is a plain string. (Unless C<$Error::ObjectifyCallback> is modified)
 
 =back
+
+=head1 $Error::ObjectifyCallback
+
+This variable holds a reference to a subroutine that converts errors that
+are plain strings to objects. It is used by Error.pm to convert textual
+errors to objects, and can be overrided by the user.
+
+It accepts a single argument which is a hash reference to named parameters. 
+Currently the only named parameter passed is C<'text'> which is the text
+of the error, but others may be available in the future.
+
+For example the following code will cause Error.pm to throw objects of the
+class MyError::Bar by default:
+
+    sub throw_MyError_Bar
+    {
+        my $args = shift;
+        my $err = MyError::Bar->new();
+        $err->{'MyBarText'} = $args->{'text'};
+        return $err;
+    }
+
+    {
+        local $Error::ObjectifyCallback = \&throw_MyError_Bar;
+
+        # Error handling here.
+    }
 
 =head1 KNOWN BUGS
 
@@ -749,6 +786,10 @@ Peter Seibel <peter@weblogic.com> and adapted by Jesse Glick
 <jglick@sig.bsh.com>.
 
 =head1 MAINTAINER
+
+Shlomi Fish <shlomif@iglu.org.il>
+
+=head1 PAST MAINTAINERS
 
 Arun Kumar U <u_arunkumar@yahoo.com>
 

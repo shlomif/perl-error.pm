@@ -1,3 +1,9 @@
+Apr 07 2006 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.15006
+  - According to https://rt.cpan.org/Ticket/Display.html?id=6130 - made
+    the auto-conversion of textual errors to object customizable.
+
 Apr 03 2006 <shlomif@iglu.org.il> (Shlomi Fish)
 
   Error.pm #0.15005
