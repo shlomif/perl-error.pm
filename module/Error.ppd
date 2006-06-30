@@ -1,4 +1,4 @@
-<SOFTPKG NAME="Error" VERSION="0,15008,0,0">
+<SOFTPKG NAME="Error" VERSION="0,15009,0,0">
     <TITLE>Error</TITLE>
     <ABSTRACT>Error/exception handling in an OO-ish way</ABSTRACT>
     <AUTHOR>Graham Barr &lt;gbarr@pobox.com&gt;</AUTHOR>

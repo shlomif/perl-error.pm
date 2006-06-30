@@ -15,7 +15,7 @@ use strict;
 use vars qw($VERSION);
 use 5.004;
 
-$VERSION = "0.15008"; 
+$VERSION = "0.15009"; 
 
 use overload (
 	'""'	   =>	'stringify',
@@ -76,6 +76,20 @@ sub prior {
 
     $err;
 }
+
+sub flush {
+    shift; #ignore
+    
+    unless (@_) {
+       $LAST = undef;
+       return;
+    }
+    
+    my $pkg = shift;
+    return unless ref($pkg);
+   
+    undef $ERROR{$pkg} if defined $ERROR{$pkg}; 
+} 
 
 # Return as much information as possible about where the error
 # happened. The -stacktrace element only exists if $Error::DEBUG
@@ -668,6 +682,16 @@ syntactic sugar, eg
 
 Return the last error created, or the last error associated with
 C<PACKAGE>
+
+=item flush ( [ PACKAGE ] )
+
+Flush the last error created, or the last error associated with
+C<PACKAGE>.It is necessary to clear the error stack before exiting the
+package or uncaught errors generated using C<record> will be reported.
+
+     $Error->flush;
+
+=cut
 
 =back
 

@@ -1,3 +1,8 @@
+Apr 24 2006 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.15009
+  - Added the flush() method from Alasdair Allan.
+
 Apr 07 2006 <shlomif@iglu.org.il> (Shlomi Fish)
 
   Error.pm #0.15008
