@@ -14,4 +14,5 @@ t/04use-base-Error-Simple.t
 t/05text-errors-with-file-handles.t
 t/06customize-text-throw.t
 t/07try-in-obj-destructor.t
+t/08warndie.t
 t/lib/MyDie.pm
