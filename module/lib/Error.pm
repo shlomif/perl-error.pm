@@ -519,84 +519,84 @@ package Error::WarnDie;
 
 sub gen_callstack($)
 {
-   my ( $start ) = @_;
+    my ( $start ) = @_;
 
-   require Carp;
-   local $Carp::CarpLevel = $start;
-   my $trace = Carp::longmess("");
-   # Remove try calls from the trace
-   $trace =~ s/(\n\s+\S+__ANON__[^\n]+)?\n\s+eval[^\n]+\n\s+Error::subs::try[^\n]+(?=\n)//sog;
-   $trace =~ s/(\n\s+\S+__ANON__[^\n]+)?\n\s+eval[^\n]+\n\s+Error::subs::run_clauses[^\n]+\n\s+Error::subs::try[^\n]+(?=\n)//sog;
-   my @callstack = split( m/\n/, $trace );
-   return @callstack;
+    require Carp;
+    local $Carp::CarpLevel = $start;
+    my $trace = Carp::longmess("");
+    # Remove try calls from the trace
+    $trace =~ s/(\n\s+\S+__ANON__[^\n]+)?\n\s+eval[^\n]+\n\s+Error::subs::try[^\n]+(?=\n)//sog;
+    $trace =~ s/(\n\s+\S+__ANON__[^\n]+)?\n\s+eval[^\n]+\n\s+Error::subs::run_clauses[^\n]+\n\s+Error::subs::try[^\n]+(?=\n)//sog;
+    my @callstack = split( m/\n/, $trace );
+    return @callstack;
 }
 
 sub DEATH
 {
-   my ( $e ) = @_;
+    my ( $e ) = @_;
 
-   die @_ if $^S;
+    die @_ if $^S;
 
-   my ( $etype, $message, $location, @callstack );
-   if ( ref($e) && $e->isa( "Error" ) ) {
-      $etype = "exception of type " . ref( $e );
-      $message = $e->text;
-      $location = $e->file . ":" . $e->line;
-      @callstack = split( m/\n/, $e->stacktrace );
-   }
-   else {
-      # Don't apply subsequent layer of message formatting
-      die $e if( $e =~ m/^\nUnhandled perl error caught at toplevel:\n\n/ );
-      $etype = "perl error";
-      my $stackdepth = 0;
-      while( caller( $stackdepth ) =~ m/^Error(?:$|::)/ ) {
-         $stackdepth++
-      }
+    my ( $etype, $message, $location, @callstack );
+    if ( ref($e) && $e->isa( "Error" ) ) {
+        $etype = "exception of type " . ref( $e );
+        $message = $e->text;
+        $location = $e->file . ":" . $e->line;
+        @callstack = split( m/\n/, $e->stacktrace );
+    }
+    else {
+        # Don't apply subsequent layer of message formatting
+        die $e if( $e =~ m/^\nUnhandled perl error caught at toplevel:\n\n/ );
+        $etype = "perl error";
+        my $stackdepth = 0;
+        while( caller( $stackdepth ) =~ m/^Error(?:$|::)/ ) {
+            $stackdepth++
+        }
 
-      @callstack = gen_callstack( $stackdepth + 1 );
+        @callstack = gen_callstack( $stackdepth + 1 );
 
-      $message = "$e";
-      chomp $message;
+        $message = "$e";
+        chomp $message;
 
-      if ( $message =~ s/ at (.*?) line (\d+)\.$// ) {
-         $location = $1 . ":" . $2;
-      }
-      else {
-         my @caller = caller( $stackdepth );
-         $location = $caller[1] . ":" . $caller[2];
-      }
-   }
+        if ( $message =~ s/ at (.*?) line (\d+)\.$// ) {
+            $location = $1 . ":" . $2;
+        }
+        else {
+            my @caller = caller( $stackdepth );
+            $location = $caller[1] . ":" . $caller[2];
+        }
+    }
 
-   shift @callstack;
-   # Do it this way in case there are no elements; we don't print a spurious \n
-   my $callstack = join( "", map { "$_\n"} @callstack );
+    shift @callstack;
+    # Do it this way in case there are no elements; we don't print a spurious \n
+    my $callstack = join( "", map { "$_\n"} @callstack );
 
-   die "\nUnhandled $etype caught at toplevel:\n\n  $message\n\nThrown from: $location\n\nFull stack trace:\n\n$callstack\n";
+    die "\nUnhandled $etype caught at toplevel:\n\n  $message\n\nThrown from: $location\n\nFull stack trace:\n\n$callstack\n";
 }
 
 sub TAXES
 {
-   my ( $message ) = @_;
+    my ( $message ) = @_;
 
-   $message =~ s/ at .*? line \d+\.$//;
-   chomp $message;
+    $message =~ s/ at .*? line \d+\.$//;
+    chomp $message;
 
-   my @callstack = gen_callstack( 1 );
-   my $location = shift @callstack;
+    my @callstack = gen_callstack( 1 );
+    my $location = shift @callstack;
 
-   # $location already starts in a leading space
-   $message .= $location;
+    # $location already starts in a leading space
+    $message .= $location;
 
-   # Do it this way in case there are no elements; we don't print a spurious \n
-   my $callstack = join( "", map { "$_\n"} @callstack );
+    # Do it this way in case there are no elements; we don't print a spurious \n
+    my $callstack = join( "", map { "$_\n"} @callstack );
 
-   warn "$message:\n$callstack";
+    warn "$message:\n$callstack";
 }
 
 sub import
 {
-   $SIG{__DIE__}  = \&DEATH;
-   $SIG{__WARN__} = \&TAXES;
+    $SIG{__DIE__}  = \&DEATH;
+    $SIG{__WARN__} = \&TAXES;
 }
 
 1;

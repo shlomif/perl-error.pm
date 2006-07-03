@@ -12,8 +12,8 @@ $Error::Debug = 1;
 # Returns the line number it is called from
 sub this_line()
 {
-   my @caller = caller();
-   return $caller[2];
+    my @caller = caller();
+    return $caller[2];
 }
 
 # This file's name - for string matching
@@ -26,40 +26,40 @@ my ( $s, $exitcode );
 my $linekid = this_line + 16; # the $code->() is 16 lines below this one
 sub run_kid(&)
 {
-   my ( $code ) = @_;
+    my ( $code ) = @_;
 
-   my $kid = open( my $childh, "-|" );
-      
-   defined $kid or
-      die "Can't pipe/fork myself - $!";
+    my $kid = open( my $childh, "-|" );
 
-   if ( !$kid ) {
-      close STDERR;
-      open STDERR, ">&", STDOUT;
+    defined $kid or
+        die "Can't pipe/fork myself - $!";
 
-      $! = 3; # This number should be returned from a die
+    if ( !$kid ) {
+        close STDERR;
+        open STDERR, ">&", STDOUT;
 
-      $code->();
+        $! = 3; # This number should be returned from a die
 
-      exit( 5 ); # This number should be returned if the $code block returns
-   }
+        $code->();
 
-   $s = "";
-   while( defined ( $_ = <$childh> ) ) {
-      $s .= $_;
-   }
+        exit( 5 ); # This number should be returned if the $code block returns
+    }
 
-   $exitcode = 0;
-   unless( close( $childh ) ) {
-      warn "Error closing pipe - $!" if $!;
-      $exitcode = ($? >> 8) & 0xff;
-   }   
+    $s = "";
+    while( defined ( $_ = <$childh> ) ) {
+        $s .= $_;
+    }
+
+    $exitcode = 0;
+    unless( close( $childh ) ) {
+        warn "Error closing pipe - $!" if $!;
+        $exitcode = ($? >> 8) & 0xff;
+    }   
 }
 
 ok(1, "Loaded");
 
 run_kid {
-   print STDERR "Print to STDERR\n";
+    print STDERR "Print to STDERR\n";
 };
 
 is( $s, "Print to STDERR\n", "Test framework STDERR" );
@@ -69,7 +69,7 @@ my $line;
 
 $line = this_line;
 run_kid {
-   warn "A warning\n";
+    warn "A warning\n";
 };
 
 my ( $linea, $lineb ) = ( $line + 2, $line + 3 );
@@ -81,7 +81,7 @@ is( $exitcode, 5, "warn \\n-terminated exit code" );
 
 $line = this_line;
 run_kid {
-   warn "A warning";
+    warn "A warning";
 };
 
 ( $linea, $lineb ) = ( $line + 2, $line + 3 );
@@ -93,7 +93,7 @@ is( $exitcode, 5, "warn unterminated exit code" );
 
 $line = this_line;
 run_kid {
-   die "An error\n";
+    die "An error\n";
 };
 
 ( $linea, $lineb ) = ( $line + 2, $line + 3 );
@@ -114,7 +114,7 @@ is( $exitcode, 3, "die \\n-terminated exit code" );
 
 $line = this_line;
 run_kid {
-   die "An error";
+    die "An error";
 };
 
 ( $linea, $lineb ) = ( $line + 2, $line + 3 );
@@ -135,7 +135,7 @@ is( $exitcode, 3, "die unterminated exit code" );
 
 $line = this_line;
 run_kid {
-   throw Error( -text => "An exception" );
+    throw Error( -text => "An exception" );
 };
 
 ( $linea, $lineb ) = ( $line + 2, $line + 3 );
