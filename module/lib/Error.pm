@@ -8,8 +8,6 @@
 # <peter@weblogic.com> and adapted by Jesse Glick <jglick@sig.bsh.com>.
 #
 # but modified ***significantly***
-#
-# Error::WarnDie added by Paul Evams <leonerd@leonerd.org.uk>
 
 package Error;
 
@@ -976,6 +974,8 @@ Graham Barr <gbarr@pobox.com>
 The code that inspired me to write this was originally written by
 Peter Seibel <peter@weblogic.com> and adapted by Jesse Glick
 <jglick@sig.bsh.com>.
+
+C<:warndie> handlers added by Paul Evans <leonerd@leonerd.org.uk>
 
 =head1 MAINTAINER
 
