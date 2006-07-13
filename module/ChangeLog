@@ -1,3 +1,9 @@
+Jul 13 2006 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.17
+  - Added some examples to the examples/ directory.
+  - Updated the MANIFEST.
+
 Jul 13 2006 <leonerd@leonerd.org.uk> (Paul Evans)
 
   Error.pm #0.16001
