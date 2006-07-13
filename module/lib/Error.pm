@@ -47,8 +47,20 @@ use Scalar::Util ();
 
 sub import {
     shift;
+    my @tags = @_;
     local $Exporter::ExportLevel = $Exporter::ExportLevel + 1;
-    Error::subs->import(@_);
+    
+    @tags = grep { 
+       if( $_ eq ':warndie' ) {
+          Error::WarnDie->import();
+          0;
+       }
+       else {
+          1;
+       }
+    } @tags;
+
+    Error::subs->import(@tags);
 }
 
 # I really want to use last for the name of this method, but it is a keyword
@@ -500,6 +512,103 @@ sub otherwise (&;$) {
 }
 
 1;
+
+package Error::WarnDie;
+
+sub gen_callstack($)
+{
+    my ( $start ) = @_;
+
+    require Carp;
+    local $Carp::CarpLevel = $start;
+    my $trace = Carp::longmess("");
+    # Remove try calls from the trace
+    $trace =~ s/(\n\s+\S+__ANON__[^\n]+)?\n\s+eval[^\n]+\n\s+Error::subs::try[^\n]+(?=\n)//sog;
+    $trace =~ s/(\n\s+\S+__ANON__[^\n]+)?\n\s+eval[^\n]+\n\s+Error::subs::run_clauses[^\n]+\n\s+Error::subs::try[^\n]+(?=\n)//sog;
+    my @callstack = split( m/\n/, $trace );
+    return @callstack;
+}
+
+my $old_DIE;
+my $old_WARN;
+
+sub DEATH
+{
+    my ( $e ) = @_;
+
+    local $SIG{__DIE__} = $old_DIE if( defined $old_DIE );
+
+    die @_ if $^S;
+
+    my ( $etype, $message, $location, @callstack );
+    if ( ref($e) && $e->isa( "Error" ) ) {
+        $etype = "exception of type " . ref( $e );
+        $message = $e->text;
+        $location = $e->file . ":" . $e->line;
+        @callstack = split( m/\n/, $e->stacktrace );
+    }
+    else {
+        # Don't apply subsequent layer of message formatting
+        die $e if( $e =~ m/^\nUnhandled perl error caught at toplevel:\n\n/ );
+        $etype = "perl error";
+        my $stackdepth = 0;
+        while( caller( $stackdepth ) =~ m/^Error(?:$|::)/ ) {
+            $stackdepth++
+        }
+
+        @callstack = gen_callstack( $stackdepth + 1 );
+
+        $message = "$e";
+        chomp $message;
+
+        if ( $message =~ s/ at (.*?) line (\d+)\.$// ) {
+            $location = $1 . ":" . $2;
+        }
+        else {
+            my @caller = caller( $stackdepth );
+            $location = $caller[1] . ":" . $caller[2];
+        }
+    }
+
+    shift @callstack;
+    # Do it this way in case there are no elements; we don't print a spurious \n
+    my $callstack = join( "", map { "$_\n"} @callstack );
+
+    die "\nUnhandled $etype caught at toplevel:\n\n  $message\n\nThrown from: $location\n\nFull stack trace:\n\n$callstack\n";
+}
+
+sub TAXES
+{
+    my ( $message ) = @_;
+
+    local $SIG{__WARN__} = $old_WARN if( defined $old_WARN );
+
+    $message =~ s/ at .*? line \d+\.$//;
+    chomp $message;
+
+    my @callstack = gen_callstack( 1 );
+    my $location = shift @callstack;
+
+    # $location already starts in a leading space
+    $message .= $location;
+
+    # Do it this way in case there are no elements; we don't print a spurious \n
+    my $callstack = join( "", map { "$_\n"} @callstack );
+
+    warn "$message:\n$callstack";
+}
+
+sub import
+{
+    $old_DIE  = $SIG{__DIE__};
+    $old_WARN = $SIG{__WARN__};
+
+    $SIG{__DIE__}  = \&DEATH;
+    $SIG{__WARN__} = \&TAXES;
+}
+
+1;
+
 __END__
 
 =head1 NAME
@@ -798,6 +907,62 @@ class MyError::Bar by default:
         # Error handling here.
     }
 
+=cut
+
+=head1 MESSAGE HANDLERS
+
+C<Error> also provides handlers to extend the output of the C<warn()> perl
+function, and to handle the printing of a thrown C<Error> that is not caught
+or otherwise handled. These are not installed by default, but are requested
+using the C<:warndie> tag in the C<use> line.
+
+ use Error qw( :warndie );
+
+These new error handlers are installed in C<$SIG{__WARN__}> and
+C<$SIG{__DIE__}>. If these handlers are already defined when the tag is
+imported, the old values are stored, and used during the new code. Thus, to
+arrange for custom handling of warnings and errors, you will need to perform
+something like the following:
+
+ BEGIN {
+   $SIG{__WARN__} = sub {
+     print STDERR "My special warning handler: $_[0]"
+   };
+ }
+
+ use Error qw( :warndie );
+
+Note that setting C<$SIG{__WARN__}> after the C<:warndie> tag has been
+imported will overwrite the handler that C<Error> provides. If this cannot be
+avoided, then the tag can be explicitly C<import>ed later
+
+ use Error;
+
+ $SIG{__WARN__} = ...;
+
+ import Error qw( :warndie );
+
+=head2 EXAMPLE
+
+The C<__DIE__> handler turns messages such as
+
+ Can't call method "foo" on an undefined value at examples/warndie.pl line 16.
+
+into
+
+ Unhandled perl error caught at toplevel:
+
+   Can't call method "foo" on an undefined value
+
+ Thrown from: examples/warndie.pl:16
+
+ Full stack trace:
+
+         main::inner('undef') called at examples/warndie.pl line 20
+         main::outer('undef') called at examples/warndie.pl line 23
+
+=cut
+
 =head1 KNOWN BUGS
 
 None, but that does not mean there are not any.
@@ -810,6 +975,8 @@ The code that inspired me to write this was originally written by
 Peter Seibel <peter@weblogic.com> and adapted by Jesse Glick
 <jglick@sig.bsh.com>.
 
+C<:warndie> handlers added by Paul Evans <leonerd@leonerd.org.uk>
+
 =head1 MAINTAINER
 
 Shlomi Fish <shlomif@iglu.org.il>
@@ -819,3 +986,4 @@ Shlomi Fish <shlomif@iglu.org.il>
 Arun Kumar U <u_arunkumar@yahoo.com>
 
 =cut
+
