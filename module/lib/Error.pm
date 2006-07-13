@@ -531,9 +531,14 @@ sub gen_callstack($)
     return @callstack;
 }
 
+my $old_DIE;
+my $old_WARN;
+
 sub DEATH
 {
     my ( $e ) = @_;
+
+    local $SIG{__DIE__} = $old_DIE;
 
     die @_ if $^S;
 
@@ -578,6 +583,8 @@ sub TAXES
 {
     my ( $message ) = @_;
 
+    local $SIG{__WARN__} = $old_WARN;
+
     $message =~ s/ at .*? line \d+\.$//;
     chomp $message;
 
@@ -595,6 +602,9 @@ sub TAXES
 
 sub import
 {
+    $old_DIE  = $SIG{__DIE__};
+    $old_WARN = $SIG{__WARN__};
+
     $SIG{__DIE__}  = \&DEATH;
     $SIG{__WARN__} = \&TAXES;
 }
