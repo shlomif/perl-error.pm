@@ -538,7 +538,7 @@ sub DEATH
 {
     my ( $e ) = @_;
 
-    local $SIG{__DIE__} = $old_DIE;
+    local $SIG{__DIE__} = $old_DIE if( defined $old_DIE );
 
     die @_ if $^S;
 
@@ -583,7 +583,7 @@ sub TAXES
 {
     my ( $message ) = @_;
 
-    local $SIG{__WARN__} = $old_WARN;
+    local $SIG{__WARN__} = $old_WARN if( defined $old_WARN );
 
     $message =~ s/ at .*? line \d+\.$//;
     chomp $message;
