@@ -22,9 +22,9 @@ my $file = $0;
 
 # Most of these tests are fatal, and print data on STDERR. We therefore use
 # this testing function to run a CODEref in a child process and captures its
-# STDERR and exit code.
-my ( $s, $exitcode );
-my $linekid = this_line + 16; # the $code->() is 16 lines below this one
+# STDERR and note whether the CODE block exited
+my ( $s, $felloffcode );
+my $linekid = this_line + 14; # the $code->() is 14 lines below this one
 sub run_kid(&)
 {
     my ( $code ) = @_;
@@ -38,11 +38,10 @@ sub run_kid(&)
         close STDERR;
         open STDERR, ">&", STDOUT;
 
-        $! = 3; # This number should be returned from a die
-
         $code->();
 
-        exit( 5 ); # This number should be returned if the $code block returns
+        print STDERR "FELL OUT OF CODEREF\n";
+        exit(1);
     }
 
     $s = "";
@@ -50,11 +49,12 @@ sub run_kid(&)
         $s .= $_;
     }
 
-    $exitcode = 0;
-    unless( close( $childh ) ) {
-        warn "Error closing pipe - $!" if $!;
-        $exitcode = ($? >> 8) & 0xff;
-    }   
+    close( $childh );
+
+    $felloffcode = 0;
+    if( $s =~ s/FELL OUT OF CODEREF\n$// ) {
+        $felloffcode = 1;
+    }
 }
 
 ok(1, "Loaded");
@@ -64,7 +64,7 @@ run_kid {
 };
 
 is( $s, "Print to STDERR\n", "Test framework STDERR" );
-is( $exitcode, 5, "Test framework exitcode" );
+is( $felloffcode, 1, "Test framework felloffcode" );
 
 my $line;
 
@@ -78,7 +78,7 @@ like( $s, qr/^A warning at $file line $linea:
 \tmain::__ANON__\(\) called at $file line $linekid
 \tmain::run_kid\('CODE\(0x[0-9a-f]+\)'\) called at $file line $lineb
 $/, "warn \\n-terminated STDERR" );
-is( $exitcode, 5, "warn \\n-terminated exit code" );
+is( $felloffcode, 1, "warn \\n-terminated felloffcode" );
 
 $line = this_line;
 run_kid {
@@ -90,7 +90,7 @@ like( $s, qr/^A warning at $file line $linea:
 \tmain::__ANON__\(\) called at $file line $linekid
 \tmain::run_kid\('CODE\(0x[0-9a-f]+\)'\) called at $file line $lineb
 $/, "warn unterminated STDERR" );
-is( $exitcode, 5, "warn unterminated exit code" );
+is( $felloffcode, 1, "warn unterminated felloffcode" );
 
 $line = this_line;
 run_kid {
@@ -111,7 +111,7 @@ Full stack trace:
 \tmain::run_kid\('CODE\(0x[0-9a-f]+\)'\) called at $file line $lineb
 
 $/, "die \\n-terminated STDERR" );
-is( $exitcode, 3, "die \\n-terminated exit code" );
+is( $felloffcode, 0, "die \\n-terminated felloffcode" );
 
 $line = this_line;
 run_kid {
@@ -132,7 +132,7 @@ Full stack trace:
 \tmain::run_kid\('CODE\(0x[0-9a-f]+\)'\) called at $file line $lineb
 
 $/, "die unterminated STDERR" );
-is( $exitcode, 3, "die unterminated exit code" );
+is( $felloffcode, 0, "die unterminated felloffcode" );
 
 $line = this_line;
 run_kid {
@@ -153,7 +153,7 @@ Full stack trace:
 \tmain::run_kid\('CODE\(0x[0-9a-f]+\)'\) called at $file line $lineb
 
 $/, "Error STDOUT" );
-is( $exitcode, 3, "Error exit code" );
+is( $felloffcode, 0, "Error felloffcode" );
 
 # Now custom warn and die functions to ensure the :warndie handler respects them
 $SIG{__WARN__} = sub { warn "My custom warning here: $_[0]" };
@@ -167,7 +167,7 @@ run_kid {
 
 $linea = $line + 2;
 is( $s, "My custom warning here: A warning at $file line $linea.\n", "Custom warn test STDERR" );
-is( $exitcode, 5, "Custom warn test exit code" );
+is( $felloffcode, 1, "Custom warn test felloffcode" );
 
 $line = this_line;
 run_kid {
@@ -176,7 +176,7 @@ run_kid {
 
 $linea = $line + 2;
 is( $s, "My custom death here: An error at $file line $linea.\n", "Custom die test STDERR" );
-is( $exitcode, 3, "Custom die test exit code" );
+is( $felloffcode, 0, "Custom die test felloffcode" );
 
 # Re-install the :warndie handlers
 import Error qw( :warndie );
@@ -191,7 +191,7 @@ like( $s, qr/^My custom warning here: A warning at $file line $linea:
 \tmain::__ANON__\(\) called at $file line $linekid
 \tmain::run_kid\('CODE\(0x[0-9a-f]+\)'\) called at $file line $lineb
 $/, "Custom warn STDERR" );
-is( $exitcode, 5, "Custom warn exit code" );
+is( $felloffcode, 1, "Custom warn felloffcode" );
 
 $line = this_line;
 run_kid {
@@ -212,6 +212,6 @@ Full stack trace:
 \tmain::run_kid\('CODE\(0x[0-9a-f]+\)'\) called at $file line $lineb
 
 $/, "Custom die STDERR" );
-is( $exitcode, 3, "Custom die exit code" );
+is( $felloffcode, 0, "Custom die felloffcode" );
 
 # Done
