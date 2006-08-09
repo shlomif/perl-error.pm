@@ -36,7 +36,7 @@ sub run_kid(&)
 
     if ( !$kid ) {
         close STDERR;
-        open STDERR, ">&", STDOUT;
+        open STDERR, ">&STDOUT";
 
         $code->();
 
