@@ -1,3 +1,9 @@
+Aug 17 2006 <leonerd@leonerd.org.uk> (Paul Evans)
+
+  Error.pm #0.17002
+  - Documentation fix for Error::Simple constructor in example
+  - t/80warndie.t: Bugfix to open() call to work on perl 5.6
+
 Jul 24 2006 <leonerd@leonerd.org.uk> (Paul Evans)
 
   Error.pm #0.17001
