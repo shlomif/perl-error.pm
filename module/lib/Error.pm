@@ -330,6 +330,7 @@ sub run_clauses ($$$\@) {
 			my $more = 0;
 			local($Error::THROWN);
 			my $ok = eval {
+			    local $@ = $err;
 			    if($wantarray) {
 				@{$result} = $code->($err,\$more);
 			    }
@@ -364,6 +365,7 @@ sub run_clauses ($$$\@) {
 	    my $code = $clauses->{'otherwise'};
 	    my $more = 0;
 	    my $ok = eval {
+		local $@ = $err;
 		if($wantarray) {
 		    @{$result} = $code->($err,\$more);
 		}
