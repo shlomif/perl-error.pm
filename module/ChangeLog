@@ -1,3 +1,12 @@
+Aug 20 2006 <leonerd@leonerd.org.uk> (Paul Evans)
+
+  Error.pm #0.17003
+  - Pass error in $@ as well as $_[0] to catch and otherwise blocks.
+  - t/08warndie.t: Various fixes for Win32:
+    Win32 can't open( HANDLE, "-|" ) - need manual pipe()/fork() workaround
+    Filename on Win32 is t\08warndie.t - need \Q in regexp to avoid
+      interpretation as an invalid octal character
+
 Aug 17 2006 <leonerd@leonerd.org.uk> (Paul Evans)
 
   Error.pm #0.17002
