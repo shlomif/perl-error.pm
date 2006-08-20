@@ -349,8 +349,8 @@ sub run_clauses ($$$\@) {
 			else {
 			    $err = defined($Error::THROWN)
 				    ? $Error::THROWN : $@;
-                $err = $Error::ObjectifyCallback->({'text' =>$err})
-                    unless ref($err);
+				$err = $Error::ObjectifyCallback->({'text' =>$err})
+					unless ref($err);
 			}
 			last CATCH;
 		    };
@@ -382,9 +382,9 @@ sub run_clauses ($$$\@) {
 	    else {
 		$err = defined($Error::THROWN)
 			? $Error::THROWN : $@;
-            
-        $err = $Error::ObjectifyCallback->({'text' =>$err}) 
-            unless ref($err);
+
+		$err = $Error::ObjectifyCallback->({'text' =>$err}) 
+			unless ref($err);
 	    }
 	}
     }
@@ -404,7 +404,7 @@ sub try (&;$) {
 
     do {
 	local $Error::THROWN = undef;
-    local $@ = undef;
+	local $@ = undef;
 
 	$ok = eval {
 	    if($wantarray) {
@@ -426,7 +426,7 @@ sub try (&;$) {
     shift @Error::STACK;
 
     $err = run_clauses($clauses,$err,wantarray,@result)
-	unless($ok);
+    unless($ok);
 
     $clauses->{'finally'}->()
 	if(defined($clauses->{'finally'}));
