@@ -692,7 +692,7 @@ C<BLOCK> will be passed two arguments. The first will be the error
 being thrown. The second is a reference to a scalar variable. If this
 variable is set by the catch block then, on return from the catch
 block, try will continue processing as if the catch block was never
-found.
+found. The error will also be available in C<$@>.
 
 To propagate the error the catch block may call C<$err-E<gt>throw>
 
@@ -713,7 +713,7 @@ type.
 Catch any error by executing the code in C<BLOCK>
 
 When evaluated C<BLOCK> will be passed one argument, which will be the
-error being processed.
+error being processed. The error will also be available in C<$@>.
 
 Only one otherwise block may be specified per try block
 
