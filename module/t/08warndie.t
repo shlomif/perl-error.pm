@@ -17,8 +17,10 @@ sub this_line()
     return $caller[2];
 }
 
-# This file's name - for string matching
-my $file = $0;
+# This file's name - for string matching. We need to quotemeta it, because on
+# Win32, the filename is t\08warndie.t, and we don't want that accidentally
+# matching an (invalid) \08 octal digit
+my $file = qr/\Q$0\E/;
 
 # Most of these tests are fatal, and print data on STDERR. We therefore use
 # this testing function to run a CODEref in a child process and captures its
@@ -29,14 +31,14 @@ sub run_kid(&)
 {
     my ( $code ) = @_;
 
-    my $kid = open( my $childh, "-|" );
-
-    defined $kid or
-        die "Can't pipe/fork myself - $!";
+    # Win32's fork() emulation can't correctly handle the open("-|") case yet
+    # So we'll implement this manually - inspired by 'perldoc perlfork'
+    pipe my $childh, my $child or die "Cannot pipe() - $!";
+    defined( my $kid = fork() ) or die "Cannot fork() - $!";
 
     if ( !$kid ) {
-        close STDERR;
-        open STDERR, ">&STDOUT";
+        close $childh;
+        open(STDERR, ">&=" . fileno($child)) or die;
 
         $code->();
 
@@ -44,12 +46,15 @@ sub run_kid(&)
         exit(1);
     }
 
+    close $child;
+
     $s = "";
     while( defined ( $_ = <$childh> ) ) {
         $s .= $_;
     }
 
     close( $childh );
+    waitpid( $kid, 0 );
 
     $felloffcode = 0;
     if( $s =~ s/FELL OUT OF CODEREF\n$// ) {
@@ -166,7 +171,8 @@ run_kid {
 };
 
 $linea = $line + 2;
-is( $s, "My custom warning here: A warning at $file line $linea.\n", "Custom warn test STDERR" );
+like( $s, qr/^My custom warning here: A warning at $file line $linea.
+$/, "Custom warn test STDERR" );
 is( $felloffcode, 1, "Custom warn test felloffcode" );
 
 $line = this_line;
@@ -175,7 +181,8 @@ run_kid {
 };
 
 $linea = $line + 2;
-is( $s, "My custom death here: An error at $file line $linea.\n", "Custom die test STDERR" );
+like( $s, qr/^My custom death here: An error at $file line $linea.
+/, "Custom die test STDERR" );
 is( $felloffcode, 0, "Custom die test felloffcode" );
 
 # Re-install the :warndie handlers
