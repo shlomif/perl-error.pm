@@ -19,7 +19,7 @@ my $file = qr/\Q$0\E/;
 # this testing function to run a CODEref in a child process and captures its
 # STDERR and note whether the CODE block exited
 my ( $s, $felloffcode );
-my $linekid = __LINE__ + 14; # the $code->() is 14 lines below this one
+my $linekid = __LINE__ + 15; # the $code->() is 15 lines below this one
 sub run_kid(&)
 {
     my ( $code ) = @_;
@@ -31,6 +31,7 @@ sub run_kid(&)
 
     if ( !$kid ) {
         close $childh;
+        close STDERR;
         open(STDERR, ">&=" . fileno($child)) or die;
 
         $code->();
@@ -50,6 +51,7 @@ sub run_kid(&)
     waitpid( $kid, 0 );
 
     $felloffcode = 0;
+    $s =~ tr/\r//d; # Remove Win32 \r linefeeds to make RE tests easier
     if( $s =~ s/FELL OUT OF CODEREF\n$// ) {
         $felloffcode = 1;
     }
