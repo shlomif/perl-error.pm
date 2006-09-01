@@ -10,13 +10,6 @@ use Error qw/ :warndie /;
 # Turn on full stack trace capture
 $Error::Debug = 1;
 
-# Returns the line number it is called from
-sub this_line()
-{
-    my @caller = caller();
-    return $caller[2];
-}
-
 # This file's name - for string matching. We need to quotemeta it, because on
 # Win32, the filename is t\08warndie.t, and we don't want that accidentally
 # matching an (invalid) \08 octal digit
@@ -26,7 +19,7 @@ my $file = qr/\Q$0\E/;
 # this testing function to run a CODEref in a child process and captures its
 # STDERR and note whether the CODE block exited
 my ( $s, $felloffcode );
-my $linekid = this_line + 14; # the $code->() is 14 lines below this one
+my $linekid = __LINE__ + 14; # the $code->() is 14 lines below this one
 sub run_kid(&)
 {
     my ( $code ) = @_;
@@ -73,7 +66,7 @@ is( $felloffcode, 1, "Test framework felloffcode" );
 
 my $line;
 
-$line = this_line;
+$line = __LINE__;
 run_kid {
     warn "A warning\n";
 };
@@ -85,7 +78,7 @@ like( $s, qr/^A warning at $file line $linea:
 $/, "warn \\n-terminated STDERR" );
 is( $felloffcode, 1, "warn \\n-terminated felloffcode" );
 
-$line = this_line;
+$line = __LINE__;
 run_kid {
     warn "A warning";
 };
@@ -97,7 +90,7 @@ like( $s, qr/^A warning at $file line $linea:
 $/, "warn unterminated STDERR" );
 is( $felloffcode, 1, "warn unterminated felloffcode" );
 
-$line = this_line;
+$line = __LINE__;
 run_kid {
     die "An error\n";
 };
@@ -118,7 +111,7 @@ Full stack trace:
 $/, "die \\n-terminated STDERR" );
 is( $felloffcode, 0, "die \\n-terminated felloffcode" );
 
-$line = this_line;
+$line = __LINE__;
 run_kid {
     die "An error";
 };
@@ -139,7 +132,7 @@ Full stack trace:
 $/, "die unterminated STDERR" );
 is( $felloffcode, 0, "die unterminated felloffcode" );
 
-$line = this_line;
+$line = __LINE__;
 run_kid {
     throw Error( -text => "An exception" );
 };
@@ -165,7 +158,7 @@ $SIG{__WARN__} = sub { warn "My custom warning here: $_[0]" };
 $SIG{__DIE__}  = sub { die  "My custom death here: $_[0]" };
 
 # First test them
-$line = this_line;
+$line = __LINE__;
 run_kid {
     warn "A warning";
 };
@@ -175,7 +168,7 @@ like( $s, qr/^My custom warning here: A warning at $file line $linea.
 $/, "Custom warn test STDERR" );
 is( $felloffcode, 1, "Custom warn test felloffcode" );
 
-$line = this_line;
+$line = __LINE__;
 run_kid {
     die "An error";
 };
@@ -188,7 +181,7 @@ is( $felloffcode, 0, "Custom die test felloffcode" );
 # Re-install the :warndie handlers
 import Error qw( :warndie );
 
-$line = this_line;
+$line = __LINE__;
 run_kid {
     warn "A warning\n";
 };
@@ -200,7 +193,7 @@ like( $s, qr/^My custom warning here: A warning at $file line $linea:
 $/, "Custom warn STDERR" );
 is( $felloffcode, 1, "Custom warn felloffcode" );
 
-$line = this_line;
+$line = __LINE__;
 run_kid {
     die "An error";
 };
