@@ -1,3 +1,12 @@
+Sep 01 2006 <leonerd@leonerd.org.uk> (Paul Evans)
+
+  Error.pm #0.17004
+  - t/08warndie.t: Various fixes:
+    Workaround for ActivePerl bug when dup2()ing to STDERR - close it first
+      Should fix https://rt.cpan.org/Public/Bug/Display.html?id=21080 but I
+      have no means to test it
+    Use __LINE__ rather than a custom function implemented using caller()
+
 Aug 20 2006 <leonerd@leonerd.org.uk> (Paul Evans)
 
   Error.pm #0.17003
