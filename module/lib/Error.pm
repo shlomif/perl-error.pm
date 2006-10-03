@@ -15,7 +15,7 @@ use strict;
 use vars qw($VERSION);
 use 5.004;
 
-$VERSION = "0.17004"; 
+$VERSION = "0.17005"; 
 
 use overload (
 	'""'	   =>	'stringify',
@@ -330,7 +330,7 @@ sub run_clauses ($$$\@) {
 			my $more = 0;
 			local($Error::THROWN);
 			my $ok = eval {
-			    local $@ = $err;
+			    $@ = $err;
 			    if($wantarray) {
 				@{$result} = $code->($err,\$more);
 			    }
@@ -364,8 +364,9 @@ sub run_clauses ($$$\@) {
 	if(defined($owise = $clauses->{'otherwise'})) {
 	    my $code = $clauses->{'otherwise'};
 	    my $more = 0;
+        local($Error::THROWN);
 	    my $ok = eval {
-		local $@ = $err;
+		$@ = $err;
 		if($wantarray) {
 		    @{$result} = $code->($err,\$more);
 		}

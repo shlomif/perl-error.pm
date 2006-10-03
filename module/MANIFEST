@@ -22,4 +22,5 @@ t/06customize-text-throw.t
 t/07try-in-obj-destructor.t
 t/08warndie.t
 t/09dollar-at.t
+t/10throw-in-catch.t
 t/lib/MyDie.pm

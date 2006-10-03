@@ -1,3 +1,12 @@
+Oct 03 2006 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.17005
+  - t/09dollar-at.t - included in the distribution (it was not placed in
+  the MANIFEST previously.
+  - t/10throw-in-catch.t, t/Error.pm - Fixed:
+    http://rt.cpan.org/Public/Bug/Display.html?id=21884 when an error that
+    was thrown inside a catch or otherwise clause was not registered. 
+
 Sep 01 2006 <leonerd@leonerd.org.uk> (Paul Evans)
 
   Error.pm #0.17004
