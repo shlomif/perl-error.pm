@@ -21,4 +21,5 @@ t/05text-errors-with-file-handles.t
 t/06customize-text-throw.t
 t/07try-in-obj-destructor.t
 t/08warndie.t
+t/09dollar-at.t
 t/lib/MyDie.pm
