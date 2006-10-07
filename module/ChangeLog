@@ -1,3 +1,11 @@
+Oct 07 2006 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.17006
+  - t/11rethrow.t - added the test file by Thomas Equeter.
+  - Changed to the more correct behevaiour that fixes the rethrowning
+  error by Thomas Equeter.
+  - see http://rt.cpan.org/Public/Bug/Display.html?id=21612
+
 Oct 03 2006 <shlomif@iglu.org.il> (Shlomi Fish)
 
   Error.pm #0.17005

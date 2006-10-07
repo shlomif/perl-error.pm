@@ -328,7 +328,7 @@ sub run_clauses ($$$\@) {
 		    $code = $catch->[$i+1];
 		    while(1) {
 			my $more = 0;
-			local($Error::THROWN);
+			local($Error::THROWN, $@);
 			my $ok = eval {
 			    $@ = $err;
 			    if($wantarray) {
@@ -364,7 +364,7 @@ sub run_clauses ($$$\@) {
 	if(defined($owise = $clauses->{'otherwise'})) {
 	    my $code = $clauses->{'otherwise'};
 	    my $more = 0;
-        local($Error::THROWN);
+        local($Error::THROWN, $@);
 	    my $ok = eval {
 		$@ = $err;
 		if($wantarray) {
