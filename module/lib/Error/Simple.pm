@@ -3,6 +3,10 @@
 # Copyright (c) 2006 Shlomi Fish <shlomif@iglu.org.il>. All rights reserved.
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the MIT/X11 license.
+
+use strict;
+use warnings;
+
 use Error;
 
 1;

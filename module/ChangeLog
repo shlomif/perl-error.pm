@@ -8,6 +8,8 @@ Oct 07 2006 <shlomif@iglu.org.il> (Shlomi Fish)
   - added t/pod.t to check for POD validity.
   - added the t/pod-coverage.t file for POD coverage.
     - added the missing POD.
+  - added "use strict" and "use warnings" to lib/Error/Simple.pm to make
+    CPANTS happy.
 
 Oct 03 2006 <shlomif@iglu.org.il> (Shlomi Fish)
 
