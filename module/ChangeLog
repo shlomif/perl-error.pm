@@ -6,6 +6,8 @@ Oct 07 2006 <shlomif@iglu.org.il> (Shlomi Fish)
   error by Thomas Equeter.
   - see http://rt.cpan.org/Public/Bug/Display.html?id=21612
   - added t/pod.t to check for POD validity.
+  - added the t/pod-coverage.t file for POD coverage.
+    - added the missing POD.
 
 Oct 03 2006 <shlomif@iglu.org.il> (Shlomi Fish)
 

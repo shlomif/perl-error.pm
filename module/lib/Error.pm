@@ -32,13 +32,13 @@ $Error::THROWN = undef;	# last error thrown, a workaround until die $ref works
 my $LAST;		# Last error created
 my %ERROR;		# Last error associated with package
 
-sub throw_Error_Simple
+sub _throw_Error_Simple
 {
     my $args = shift;
     return Error::Simple->new($args->{'text'});
 }
 
-$Error::ObjectifyCallback = \&throw_Error_Simple;
+$Error::ObjectifyCallback = \&_throw_Error_Simple;
 
 
 # Exported subs are defined in Error::subs
@@ -121,10 +121,6 @@ sub stacktrace {
     $text;
 }
 
-# Allow error propagation, ie
-#
-# $ber->encode(...) or
-#    return Error->prior($ber)->associate($ldap);
 
 sub associate {
     my $err = shift;
@@ -143,6 +139,12 @@ sub associate {
 
     return;
 }
+
+=head2 Error->new()
+
+See the Error::Simple documentation.
+
+=cut
 
 sub new {
     my $self = shift;
@@ -261,6 +263,12 @@ sub value {
 package Error::Simple;
 
 @Error::Simple::ISA = qw(Error);
+
+=head2 Error->new()
+
+See the Error::Simple documentation.
+
+=cut
 
 sub new {
     my $self  = shift;
@@ -836,6 +844,13 @@ The line where the constructor of this error was called from
 
 The text of the error
 
+=item $err->associate($obj)
+
+Associates an error with an object to allow error propagation. I.e:
+
+    $ber->encode(...) or
+        return Error->prior($ber)->associate($ldap);
+
 =back
 
 =head2 OVERLOAD METHODS
@@ -865,9 +880,7 @@ to the constructor.
 
 =head1 PRE-DEFINED ERROR CLASSES
 
-=over 4
-
-=item Error::Simple
+=head2 Error::Simple
 
 This class can be used to hold simple error strings and values. It's
 constructor takes two arguments. The first is a text value, the second
@@ -881,7 +894,6 @@ of the error object.
 This class is used internally if an eval'd block die's with an error
 that is a plain string. (Unless C<$Error::ObjectifyCallback> is modified)
 
-=back
 
 =head1 $Error::ObjectifyCallback
 
