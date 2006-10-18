@@ -1,5 +1,10 @@
-  - Added the "COPYRIGHT" section to the POD with the correct license.
-  (several people have asked me about what the license is.)
+Oct 18 2006 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.17007
+  - Added the "COPYRIGHT" section to the POD with the correct
+    license. (several people have asked me about what the license is.)
+  - Added the Build.PL file so we'll have license meta data in the
+  distribution.
 
 Oct 07 2006 <shlomif@iglu.org.il> (Shlomi Fish)
 
