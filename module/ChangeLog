@@ -1,3 +1,6 @@
+  - Added the "COPYRIGHT" section to the POD with the correct license.
+  (several people have asked me about what the license is.)
+
 Oct 07 2006 <shlomif@iglu.org.il> (Shlomi Fish)
 
   Error.pm #0.17006
