@@ -9,5 +9,6 @@ WriteMakefile(
 		'Scalar::Util' => 0,
 	},
     AUTHOR    => 'Graham Barr <gbarr@pobox.com>',
-    ABSTRACT  => 'Error/exception handling in an OO-ish way'
+    ABSTRACT  => 'Error/exception handling in an OO-ish way',
+    PL_FILES => {},
 );
