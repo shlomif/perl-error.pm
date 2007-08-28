@@ -15,7 +15,7 @@ use strict;
 use vars qw($VERSION);
 use 5.004;
 
-$VERSION = "0.17008"; 
+$VERSION = "0.17008_01"; 
 
 use overload (
 	'""'	   =>	'stringify',
@@ -356,8 +356,7 @@ sub run_clauses ($$$\@) {
 			    undef $err;
 			}
 			else {
-			    $err = defined($Error::THROWN)
-				    ? $Error::THROWN : $@;
+			    $err = $@ || $Error::THROWN;
 				$err = $Error::ObjectifyCallback->({'text' =>$err})
 					unless ref($err);
 			}
@@ -391,8 +390,7 @@ sub run_clauses ($$$\@) {
 		undef $err;
 	    }
 	    else {
-		$err = defined($Error::THROWN)
-			? $Error::THROWN : $@;
+		$err = $@ || $Error::THROWN;
 
 		$err = $Error::ObjectifyCallback->({'text' =>$err}) 
 			unless ref($err);
@@ -430,7 +428,7 @@ sub try (&;$) {
 	    1;
 	};
 
-	$err = defined($Error::THROWN) ? $Error::THROWN : $@
+	$err = $@ || $Error::THROWN
 	    unless $ok;
     };
 

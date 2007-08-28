@@ -1,3 +1,10 @@
+Aug 28 2007 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.17009
+  - fixed http://rt.cpan.org/Public/Bug/Display.html?id=20643 by applying
+  a modified version of the patch by MAREKR with the t/12wrong-error-var.t
+  regression test.
+
 Oct 25 2006 <shlomif@iglu.org.il> (Shlomi Fish)
 
   Error.pm #0.17008

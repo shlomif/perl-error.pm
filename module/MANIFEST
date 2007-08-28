@@ -25,6 +25,7 @@ t/08warndie.t
 t/09dollar-at.t
 t/10throw-in-catch.t
 t/11rethrow.t
+t/12wrong-error-var.t
 t/lib/MyDie.pm
 t/pod-coverage.t
 t/pod.t
