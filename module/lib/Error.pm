@@ -15,7 +15,7 @@ use strict;
 use vars qw($VERSION);
 use 5.004;
 
-$VERSION = "0.17009"; 
+$VERSION = "0.17010"; 
 
 use overload (
 	'""'	   =>	'stringify',
@@ -140,11 +140,6 @@ sub associate {
     return;
 }
 
-=head2 Error->new()
-
-See the Error::Simple documentation.
-
-=cut
 
 sub new {
     my $self = shift;
@@ -263,12 +258,6 @@ sub value {
 package Error::Simple;
 
 @Error::Simple::ISA = qw(Error);
-
-=head2 Error->new()
-
-See the Error::Simple documentation.
-
-=cut
 
 sub new {
     my $self  = shift;
@@ -766,6 +755,10 @@ error created by a sub in that package, or the last error which passed
 an object blessed into that package as the C<-object> argument.
 
 =over 4
+
+=item Error->new()
+
+See the Error::Simple documentation.
 
 =item throw ( [ ARGS ] )
 

@@ -1,3 +1,11 @@
+Nov 22 2007 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.17010
+  - moved the first Error->new() POD portion over to the POD at the bottom, and
+    deleted the second, identical POD portion.
+  - closing http://rt.cpan.org/Public/Bug/Display.html?id=30906 
+    ( "Duplicate Error->new() documentation" )
+
 Aug 28 2007 <shlomif@iglu.org.il> (Shlomi Fish)
 
   Error.pm #0.17009
