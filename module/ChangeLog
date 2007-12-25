@@ -1,3 +1,14 @@
+Dec 25 2007 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.17011
+  - added 'warnings' to the dependencies in the Build.PL/Makefile.PL as
+    we are using it.
+  - changed the author in Makefile.PL/Build.PL from GBARR to SHLOMIF:
+    - http://rt.cpan.org/Public/Bug/Display.html?id=31861
+    - Thanks to Michael Schwern
+  - added an empty line between the "__END__" and "=head1" in
+  lib/Error/Simple.pm for more pedantic POD parsers.
+
 Nov 22 2007 <shlomif@iglu.org.il> (Shlomi Fish)
 
   Error.pm #0.17010
