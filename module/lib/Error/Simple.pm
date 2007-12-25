@@ -11,6 +11,7 @@ use Error;
 
 1;
 __END__
+
 =head1 NAME
 
 Error::Simple - the simple error sub-class of Error
