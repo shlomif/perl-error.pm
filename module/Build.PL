@@ -11,9 +11,10 @@ my $build = Test::Run::Builder->new(
     'requires'    => 
     {
         'Scalar::Util' => 0,
+        'warnings' => 0,
     },
     'license'  => "perl",
     'dist_abstract' => 'Error/exception handling in an OO-ish way',
-    'dist_author'   => 'Graham Barr <gbarr@pobox.com>',
+    'dist_author'   => 'Shlomi Fish <shlomif@iglu.org.il>',
 );
 $build->create_build_script;

@@ -7,8 +7,9 @@ WriteMakefile(
 	PREREQ_PM => 
 	{
 		'Scalar::Util' => 0,
+		'warnings' => 0,
 	},
-    AUTHOR    => 'Graham Barr <gbarr@pobox.com>',
-    ABSTRACT  => 'Error/exception handling in an OO-ish way',
-    PL_FILES => {},
+	AUTHOR    => 'Shlomi Fish <shlomif@iglu.org.il>',
+	ABSTRACT  => 'Error/exception handling in an OO-ish way',
+	PL_FILES => {},
 );
