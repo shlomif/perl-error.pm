@@ -1,3 +1,7 @@
+Jan 25 2008 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.17012
+  - Added some examples to the examples/ directory.
   - Applied the patch from hchbaw to fix:
     -//rt.cpan.org/Public/Bug/Display.html?id=32638
     - Thanks to hchbaw
