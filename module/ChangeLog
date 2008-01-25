@@ -1,3 +1,7 @@
+  - Applied the patch from hchbaw to fix:
+    -//rt.cpan.org/Public/Bug/Display.html?id=32638
+    - Thanks to hchbaw
+
 Dec 25 2007 <shlomif@iglu.org.il> (Shlomi Fish)
 
   Error.pm #0.17011
