@@ -15,7 +15,7 @@ use strict;
 use vars qw($VERSION);
 use 5.004;
 
-$VERSION = "0.17012"; 
+$VERSION = "0.17013"; 
 
 use overload (
 	'""'	   =>	'stringify',

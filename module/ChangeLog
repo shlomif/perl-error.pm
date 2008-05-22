@@ -1,3 +1,9 @@
+May 22 2008 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.17013
+  - Now building only on perl-5.6.0 and above.
+    - Added the line to the Build.PL
+
 Jan 25 2008 <shlomif@iglu.org.il> (Shlomi Fish)
 
   Error.pm #0.17012

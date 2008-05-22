@@ -11,6 +11,7 @@ my $build = Test::Run::Builder->new(
     'requires'    => 
     {
         'Scalar::Util' => 0,
+        'perl' => "5.6.0",
         'warnings' => 0,
     },
     'license'  => "perl",
