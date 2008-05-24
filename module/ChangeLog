@@ -1,3 +1,8 @@
+May 24 2008 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.17014
+  - Made Makefile.PL require perl-5.6.0 and above.
+
 May 22 2008 <shlomif@iglu.org.il> (Shlomi Fish)
 
   Error.pm #0.17013
