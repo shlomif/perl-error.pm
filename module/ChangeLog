@@ -1,3 +1,9 @@
+Jul 19 2008 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.17015
+  - Added the "SEE ALSO" section to the Error.pm POD mentioning
+  Exception::Class and Error::Exception.
+
 May 24 2008 <shlomif@iglu.org.il> (Shlomi Fish)
 
   Error.pm #0.17014
