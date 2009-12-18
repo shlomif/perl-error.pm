@@ -1,3 +1,8 @@
+
+  - Mentioned the lack of compatibility of "use Error qw(:try)" with Moose.
+    Fixed: https://rt.cpan.org/Ticket/Display.html?id=46364
+
+
 Jul 19 2008 <shlomif@iglu.org.il> (Shlomi Fish)
 
   Error.pm #0.17015

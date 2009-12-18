@@ -726,6 +726,19 @@ Only one finally block may be specified per try block
 
 =back
 
+=head1 COMPATIBILITY
+
+L<Moose> exports a keyword called C<with> which clashes with Error's. This
+example returns a prototype mismatch error:
+
+    package MyTest;
+
+    use warnings;
+    use Moose;
+    use Error qw(:try);
+
+(Thanks to C<maik.hentsche@amd.com> for the report.).
+
 =head1 CLASS INTERFACE
 
 =head2 CONSTRUCTORS
