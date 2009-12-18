@@ -1,7 +1,7 @@
 
   - Mentioned the lack of compatibility of "use Error qw(:try)" with Moose.
     Fixed: https://rt.cpan.org/Ticket/Display.html?id=46364
-
+  - Added TryCatch and Try::Tiny to the "SEE ALSO".
 
 Jul 19 2008 <shlomif@iglu.org.il> (Shlomi Fish)
 

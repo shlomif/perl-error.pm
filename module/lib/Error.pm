@@ -993,6 +993,9 @@ on what you want. (Because Error's syntactic sugar tends to break.)
 L<Error::Exception> aims to combine L<Error> and L<Exception::Class>
 "with correct stringification".
 
+L<TryCatch> and L<Try::Tiny> are similar in concept to Error.pm only providing 
+a syntax that hopefully breaks less.
+
 =head1 KNOWN BUGS
 
 None, but that does not mean there are not any.
