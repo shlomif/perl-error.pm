@@ -613,6 +613,13 @@ __END__
 
 Error - Error/exception handling in an OO-ish way
 
+=head1 WARNING
+
+Using the "Error" module is B<no longer recommended> due to the black-magical
+nature of its syntactic sugar, which often tends to break. Its maintainers 
+have stopped actively writing code that uses it, and discourage people
+from doing so. See the "SEE ALSO" section below for better recommendations.
+
 =head1 SYNOPSIS
 
     use Error qw(:try);
