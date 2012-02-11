@@ -30,3 +30,4 @@ t/13except-arg0.t
 t/lib/MyDie.pm
 t/pod-coverage.t
 t/pod.t
+META.json
