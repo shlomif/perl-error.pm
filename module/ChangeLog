@@ -1,3 +1,9 @@
+  
+  - Bleadperl broke Error.pm's tests - 
+  	- https://rt.cpan.org/Ticket/Display.html?id=74770
+    - Applied a patch to check for optional trailing periods.
+	- Thanks to ANDK for the report and RURBAN for the patch
+  
 Dec 19 2009 <shlomif@iglu.org.il> (Shlomi Fish)
 
   Error.pm #0.17016

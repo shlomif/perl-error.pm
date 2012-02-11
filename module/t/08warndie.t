@@ -74,7 +74,7 @@ run_kid {
 };
 
 my ( $linea, $lineb ) = ( $line + 2, $line + 3 );
-like( $s, qr/^A warning at $file line $linea:
+like( $s, qr/^A warning at $file line $linea\.?:
 \tmain::__ANON__\(\) called at $file line $linekid
 \tmain::run_kid\('CODE\(0x[0-9a-f]+\)'\) called at $file line $lineb
 $/, "warn \\n-terminated STDERR" );
@@ -86,7 +86,7 @@ run_kid {
 };
 
 ( $linea, $lineb ) = ( $line + 2, $line + 3 );
-like( $s, qr/^A warning at $file line $linea:
+like( $s, qr/^A warning at $file line $linea\.?:
 \tmain::__ANON__\(\) called at $file line $linekid
 \tmain::run_kid\('CODE\(0x[0-9a-f]+\)'\) called at $file line $lineb
 $/, "warn unterminated STDERR" );
@@ -166,7 +166,7 @@ run_kid {
 };
 
 $linea = $line + 2;
-like( $s, qr/^My custom warning here: A warning at $file line $linea.
+like( $s, qr/^My custom warning here: A warning at $file line $linea\.?
 $/, "Custom warn test STDERR" );
 is( $felloffcode, 1, "Custom warn test felloffcode" );
 
@@ -176,7 +176,7 @@ run_kid {
 };
 
 $linea = $line + 2;
-like( $s, qr/^My custom death here: An error at $file line $linea.
+like( $s, qr/^My custom death here: An error at $file line $linea\.?
 /, "Custom die test STDERR" );
 is( $felloffcode, 0, "Custom die test felloffcode" );
 
@@ -189,7 +189,7 @@ run_kid {
 };
 
 ( $linea, $lineb ) = ( $line + 2, $line + 3 );
-like( $s, qr/^My custom warning here: A warning at $file line $linea:
+like( $s, qr/^My custom warning here: A warning at $file line $linea\.?:
 \tmain::__ANON__\(\) called at $file line $linekid
 \tmain::run_kid\('CODE\(0x[0-9a-f]+\)'\) called at $file line $lineb
 $/, "Custom warn STDERR" );
