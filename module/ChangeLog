@@ -1,4 +1,4 @@
-  - Add a $VERSION varialbe for Error::Simple.
+  - Add a $VERSION variable for Error::Simple.
     - thanks to Kevin Dawson for the report.
 
 Feb 11 2012 <shlomif@shlomifish.org> (Shlomi Fish)
