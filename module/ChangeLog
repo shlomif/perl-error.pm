@@ -1,5 +1,7 @@
   - Add a $VERSION variable for Error::Simple.
     - thanks to Kevin Dawson for the report.
+  - Add scripts/bump-version-number.pl .
+    - This can be used to bump the version numbers globally.
 
 Feb 11 2012 <shlomif@shlomifish.org> (Shlomi Fish)
 
