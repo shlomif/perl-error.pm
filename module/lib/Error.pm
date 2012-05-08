@@ -257,6 +257,10 @@ sub value {
 
 package Error::Simple;
 
+use vars qw($VERSION);
+
+$VERSION = "0.17017";
+
 @Error::Simple::ISA = qw(Error);
 
 sub new {

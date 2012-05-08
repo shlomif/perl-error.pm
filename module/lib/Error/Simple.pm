@@ -7,6 +7,10 @@
 use strict;
 use warnings;
 
+use vars qw($VERSION);
+
+$VERSION = "0.17017";
+
 use Error;
 
 1;
