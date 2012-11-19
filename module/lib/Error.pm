@@ -1023,7 +1023,7 @@ C<:warndie> handlers added by Paul Evans <leonerd@leonerd.org.uk>
 
 =head1 MAINTAINER
 
-Shlomi Fish <shlomif@iglu.org.il>
+Shlomi Fish, L<http://www.shlomifish.org/> .
 
 =head1 PAST MAINTAINERS
 

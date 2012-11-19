@@ -1,8 +1,10 @@
-# Error.pm
+# Error/Simple.pm
 #
-# Copyright (c) 2006 Shlomi Fish <shlomif@iglu.org.il>. All rights reserved.
-# This program is free software; you can redistribute it and/or
-# modify it under the terms of the MIT/X11 license.
+# Copyright (c) 2006 Shlomi Fish <shlomif@shlomifish.org>.
+# This file is free software; you can redistribute it and/or
+# modify it under the terms of the MIT/X11 license (whereas the licence
+# of the Error distribution as a whole is the GPLv1+ and the Artistic
+# licence).
 
 use strict;
 use warnings;
@@ -50,7 +52,7 @@ None.
 
 =head1 AUTHORS
 
-Shlomi Fish ( C<< shlomif@iglu.org.il >> )
+Shlomi Fish ( L<http://www.shlomifish.org/> )
 
 =head1 SEE ALSO
 
