@@ -15,7 +15,7 @@ use strict;
 use vars qw($VERSION);
 use 5.004;
 
-$VERSION = "0.17019"; 
+$VERSION = "0.17019";
 
 use overload (
 	'""'	   =>	'stringify',
@@ -49,8 +49,8 @@ sub import {
     shift;
     my @tags = @_;
     local $Exporter::ExportLevel = $Exporter::ExportLevel + 1;
-    
-    @tags = grep { 
+
+    @tags = grep {
        if( $_ eq ':warndie' ) {
           Error::WarnDie->import();
           0;
@@ -91,17 +91,17 @@ sub prior {
 
 sub flush {
     shift; #ignore
-    
+
     unless (@_) {
        $LAST = undef;
        return;
     }
-    
+
     my $pkg = shift;
     return unless ref($pkg);
-   
-    undef $ERROR{$pkg} if defined $ERROR{$pkg}; 
-} 
+
+    undef $ERROR{$pkg} if defined $ERROR{$pkg};
+}
 
 # Return as much information as possible about where the error
 # happened. The -stacktrace element only exists if $Error::DEBUG
@@ -180,7 +180,7 @@ sub throw {
 
     # if we are not rethrow-ing then create the object to throw
     $self = $self->new(@_) unless ref($self);
-    
+
     die $Error::THROWN = $self;
 }
 
@@ -385,7 +385,7 @@ sub run_clauses ($$$\@) {
 	    else {
 		$err = $@ || $Error::THROWN;
 
-		$err = $Error::ObjectifyCallback->({'text' =>$err}) 
+		$err = $Error::ObjectifyCallback->({'text' =>$err})
 			unless ref($err);
 	    }
 	}
@@ -479,7 +479,7 @@ sub except (&;$) {
     my $code = shift;
     my $clauses = shift || {};
     my $catch = $clauses->{'catch'} ||= [];
-    
+
     my $sub = sub {
 	my $ref;
 	my(@array) = $code->($_[0]);
@@ -620,7 +620,7 @@ Error - Error/exception handling in an OO-ish way
 =head1 WARNING
 
 Using the "Error" module is B<no longer recommended> due to the black-magical
-nature of its syntactic sugar, which often tends to break. Its maintainers 
+nature of its syntactic sugar, which often tends to break. Its maintainers
 have stopped actively writing code that uses it, and discourage people
 from doing so. See the "SEE ALSO" section below for better recommendations.
 
@@ -635,7 +635,7 @@ from doing so. See the "SEE ALSO" section below for better recommendations.
 	record Error::Simple("A simple error")
 	    and return;
     }
- 
+
     unlink($file) or throw Error::Simple("$file: $!",$!);
 
     try {
@@ -916,7 +916,7 @@ This variable holds a reference to a subroutine that converts errors that
 are plain strings to objects. It is used by Error.pm to convert textual
 errors to objects, and can be overridden by the user.
 
-It accepts a single argument which is a hash reference to named parameters. 
+It accepts a single argument which is a hash reference to named parameters.
 Currently the only named parameter passed is C<'text'> which is the text
 of the error, but others may be available in the future.
 
@@ -1004,7 +1004,7 @@ on what you want. (Because Error's syntactic sugar tends to break.)
 L<Error::Exception> aims to combine L<Error> and L<Exception::Class>
 "with correct stringification".
 
-L<TryCatch> and L<Try::Tiny> are similar in concept to Error.pm only providing 
+L<TryCatch> and L<Try::Tiny> are similar in concept to Error.pm only providing
 a syntax that hopefully breaks less.
 
 =head1 KNOWN BUGS
