@@ -903,7 +903,7 @@ is a numeric value. These values are what will be returned by the
 overload methods.
 
 If the text value ends with C<at file line 1> as $@ strings do, then
-this infomation will be used to set the C<-file> and C<-line> arguments
+this information will be used to set the C<-file> and C<-line> arguments
 of the error object.
 
 This class is used internally if an eval'd block die's with an error
@@ -914,7 +914,7 @@ that is a plain string. (Unless C<$Error::ObjectifyCallback> is modified)
 
 This variable holds a reference to a subroutine that converts errors that
 are plain strings to objects. It is used by Error.pm to convert textual
-errors to objects, and can be overrided by the user.
+errors to objects, and can be overridden by the user.
 
 It accepts a single argument which is a hash reference to named parameters. 
 Currently the only named parameter passed is C<'text'> which is the text
