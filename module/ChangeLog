@@ -19,11 +19,11 @@ May 08 2012 <shlomif@shlomifish.org> (Shlomi Fish)
 
 Feb 11 2012 <shlomif@shlomifish.org> (Shlomi Fish)
 
-  - Bleadperl broke Error.pm's tests - 
+  - Bleadperl broke Error.pm's tests -
   	- https://rt.cpan.org/Ticket/Display.html?id=74770
     - Applied a patch to check for optional trailing periods.
 	- Thanks to ANDK for the report and RURBAN for the patch
-  
+
 Dec 19 2009 <shlomif@iglu.org.il> (Shlomi Fish)
 
   Error.pm #0.17016
@@ -73,7 +73,7 @@ Nov 22 2007 <shlomif@iglu.org.il> (Shlomi Fish)
   Error.pm #0.17010
   - moved the first Error->new() POD portion over to the POD at the bottom, and
     deleted the second, identical POD portion.
-  - closing http://rt.cpan.org/Public/Bug/Display.html?id=30906 
+  - closing http://rt.cpan.org/Public/Bug/Display.html?id=30906
     ( "Duplicate Error->new() documentation" )
 
 Aug 28 2007 <shlomif@iglu.org.il> (Shlomi Fish)
@@ -117,7 +117,7 @@ Oct 03 2006 <shlomif@iglu.org.il> (Shlomi Fish)
   the MANIFEST previously.
   - t/10throw-in-catch.t, t/Error.pm - Fixed:
     http://rt.cpan.org/Public/Bug/Display.html?id=21884 when an error that
-    was thrown inside a catch or otherwise clause was not registered. 
+    was thrown inside a catch or otherwise clause was not registered.
 
 Sep 01 2006 <leonerd@leonerd.org.uk> (Paul Evans)
 
@@ -175,7 +175,7 @@ Apr 24 2006 <shlomif@iglu.org.il> (Shlomi Fish)
 Apr 07 2006 <shlomif@iglu.org.il> (Shlomi Fish)
 
   Error.pm #0.15008
-  - Fixed a test in t/05text-errors-with-file-handles.t to work on 
+  - Fixed a test in t/05text-errors-with-file-handles.t to work on
     MS Windows due to File::Spec and require inconsistency.
 
 Apr 07 2006 <shlomif@iglu.org.il> (Shlomi Fish)
@@ -205,7 +205,7 @@ Mar 31 2006 <shlomif@iglu.org.il> (Shlomi Fish)
 
   Error.pm #0.15003
   - Added the lib/Error/Simple.pm module (that just "use"'s Error) so
-    one can say "use base 'Error::Simple';' Added an appropriate test. 
+    one can say "use base 'Error::Simple';' Added an appropriate test.
     Fixes: http://rt.cpan.org/Public/Bug/Display.html?id=17841
 
 Mar 30 2006 <shlomif@iglu.org.il> (Shlomi Fish)
@@ -232,7 +232,7 @@ May 12 2001 <u_arunkumar@yahoo.com> (Arun Kumar U)
   Error.pm #0.14
 
   - Added overloading method for 'bool'. This was neccessary so that
-    examining the value of $@ after a eval block, returns a true  
+    examining the value of $@ after a eval block, returns a true
     value
   - Applied the diffs from Graham's code base
   - Changed README with more information about the module
