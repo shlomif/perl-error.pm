@@ -76,7 +76,7 @@ run_kid {
 my ( $linea, $lineb ) = ( $line + 2, $line + 3 );
 like( $s, qr/^A warning at $file line $linea\.?:
 \tmain::__ANON__\(\) called at $file line $linekid
-\tmain::run_kid\('CODE\(0x[0-9a-f]+\)'\) called at $file line $lineb
+\tmain::run_kid\('?CODE\(0x[0-9a-f]+\)'?\) called at $file line $lineb
 $/, "warn \\n-terminated STDERR" );
 is( $felloffcode, 1, "warn \\n-terminated felloffcode" );
 
@@ -88,7 +88,7 @@ run_kid {
 ( $linea, $lineb ) = ( $line + 2, $line + 3 );
 like( $s, qr/^A warning at $file line $linea\.?:
 \tmain::__ANON__\(\) called at $file line $linekid
-\tmain::run_kid\('CODE\(0x[0-9a-f]+\)'\) called at $file line $lineb
+\tmain::run_kid\('?CODE\(0x[0-9a-f]+\)'?\) called at $file line $lineb
 $/, "warn unterminated STDERR" );
 is( $felloffcode, 1, "warn unterminated felloffcode" );
 
@@ -108,7 +108,7 @@ Thrown from: $file:$linea
 Full stack trace:
 
 \tmain::__ANON__\(\) called at $file line $linekid
-\tmain::run_kid\('CODE\(0x[0-9a-f]+\)'\) called at $file line $lineb
+\tmain::run_kid\('?CODE\(0x[0-9a-f]+\)'?\) called at $file line $lineb
 
 $/, "die \\n-terminated STDERR" );
 is( $felloffcode, 0, "die \\n-terminated felloffcode" );
@@ -129,7 +129,7 @@ Thrown from: $file:$linea
 Full stack trace:
 
 \tmain::__ANON__\(\) called at $file line $linekid
-\tmain::run_kid\('CODE\(0x[0-9a-f]+\)'\) called at $file line $lineb
+\tmain::run_kid\('?CODE\(0x[0-9a-f]+\)'?\) called at $file line $lineb
 
 $/, "die unterminated STDERR" );
 is( $felloffcode, 0, "die unterminated felloffcode" );
@@ -150,7 +150,7 @@ Thrown from: $file:$linea
 Full stack trace:
 
 \tmain::__ANON__\(\) called at $file line $linekid
-\tmain::run_kid\('CODE\(0x[0-9a-f]+\)'\) called at $file line $lineb
+\tmain::run_kid\('?CODE\(0x[0-9a-f]+\)'?\) called at $file line $lineb
 
 $/, "Error STDOUT" );
 is( $felloffcode, 0, "Error felloffcode" );
@@ -191,7 +191,7 @@ run_kid {
 ( $linea, $lineb ) = ( $line + 2, $line + 3 );
 like( $s, qr/^My custom warning here: A warning at $file line $linea\.?:
 \tmain::__ANON__\(\) called at $file line $linekid
-\tmain::run_kid\('CODE\(0x[0-9a-f]+\)'\) called at $file line $lineb
+\tmain::run_kid\('?CODE\(0x[0-9a-f]+\)'?\) called at $file line $lineb
 $/, "Custom warn STDERR" );
 is( $felloffcode, 1, "Custom warn felloffcode" );
 
@@ -211,7 +211,7 @@ Thrown from: $file:$linea
 Full stack trace:
 
 \tmain::__ANON__\(\) called at $file line $linekid
-\tmain::run_kid\('CODE\(0x[0-9a-f]+\)'\) called at $file line $lineb
+\tmain::run_kid\('?CODE\(0x[0-9a-f]+\)'?\) called at $file line $lineb
 
 $/, "Custom die STDERR" );
 is( $felloffcode, 0, "Custom die felloffcode" );

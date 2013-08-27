@@ -1,4 +1,11 @@
-May 03 2012 <shlomif@shlomifish.org> (Shlomi Fish)
+Aug 27 2013 <shlomif@shlomifish.org> (Shlomi Fish)
+
+  Error.pm #0.17021
+  - Fix for the format of the new Carp (in bleadperl)
+    - https://rt.cpan.org/Ticket/Display.html?id=88137
+    - Thanks to Zefram for the report and patch.
+
+May 03 2013 <shlomif@shlomifish.org> (Shlomi Fish)
 
   Error.pm #0.17020
   - Correct typos.
