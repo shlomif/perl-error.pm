@@ -10,6 +10,7 @@ examples/warndie.pl
 inc/Test/Run/Builder.pm
 lib/Error.pm
 lib/Error/Simple.pm
+LICENSE
 Makefile.PL
 MANIFEST
 META.yml                                 Module meta-data (added by MakeMaker)

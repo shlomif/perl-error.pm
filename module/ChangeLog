@@ -2,6 +2,7 @@ Jan 29 2014 <shlomif@shlomifish.org> (Shlomi Fish)
 
   Error.pm #0.17022
   - Add "use warnings;" to everything (CPANTS Kwalitee).
+  - Add a separate LICENSE file (CPANTS Kwalitee).
 
 Aug 27 2013 <shlomif@shlomifish.org> (Shlomi Fish)
 
