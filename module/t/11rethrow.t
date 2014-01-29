@@ -1,5 +1,8 @@
 #!/usr/bin/perl
 
+use strict;
+use warnings;
+
 use Error qw(:try);
 use Test::More tests => 4;
 

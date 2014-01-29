@@ -1,4 +1,7 @@
 
+use strict;
+use warnings;
+
 use Error qw(:try);
 
 print "1..4\n";
@@ -20,6 +23,6 @@ finally {
     print "ok 3\n";
 };
 
-$err = prior Error;
+my $err = prior Error;
 
 print "ok ",2+$err,"\n";;

@@ -13,6 +13,7 @@ my $build = Test::Run::Builder->new(
     {
         'Scalar::Util' => 0,
         'perl' => "5.6.0",
+        'strict' => 0,
         'warnings' => 0,
     },
     'license'  => "perl",

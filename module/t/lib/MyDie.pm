@@ -1,5 +1,8 @@
 package MyDie;
 
+use strict;
+use warnings;
+
 sub mydie
 {
     local *I;

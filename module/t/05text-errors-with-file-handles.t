@@ -45,7 +45,7 @@ ok($ok, "Not MyError::Foo");
 ok($err->isa("Error::Simple"), "Testing");
 
 # TEST
-is($err->{-line}, 16, "Testing for correct line number");
+is($err->{-line}, 19, "Testing for correct line number");
 
 # TEST
 ok(($err->{-file} =~ m{MyDie\.pm$}), "Testing for correct module");

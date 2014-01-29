@@ -1,11 +1,14 @@
 
+use strict;
+use warnings;
+
 use Error qw(:try);
 
 @Error::Fatal::ISA = qw(Error);
 
 print "1..6\n";
 
-$num = try {
+my $num = try {
     try {
 	try {
 	    throw Error::Simple("ok 1\n");

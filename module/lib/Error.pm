@@ -12,6 +12,8 @@
 package Error;
 
 use strict;
+use warnings;
+
 use vars qw($VERSION);
 use 5.004;
 
