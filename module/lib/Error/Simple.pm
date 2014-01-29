@@ -11,7 +11,7 @@ use warnings;
 
 use vars qw($VERSION);
 
-$VERSION = "0.17021";
+$VERSION = "0.17022";
 
 use Error;
 
