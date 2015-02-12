@@ -8,7 +8,7 @@ use Test::Run::Builder;
 
 my $build = Test::Run::Builder->new(
     'module_name' => "Error",
-    configure_requires => { 'Module::Build' => '0.39', },
+    configure_requires => { 'Module::Build' => '0.280801', },
     'requires'    =>
     {
         'Scalar::Util' => 0,

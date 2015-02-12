@@ -17,7 +17,7 @@ use warnings;
 use vars qw($VERSION);
 use 5.004;
 
-$VERSION = "0.17022";
+$VERSION = "0.17023";
 
 use overload (
 	'""'	   =>	'stringify',
@@ -261,7 +261,7 @@ package Error::Simple;
 
 use vars qw($VERSION);
 
-$VERSION = "0.17022";
+$VERSION = "0.17023";
 
 @Error::Simple::ISA = qw(Error);
 

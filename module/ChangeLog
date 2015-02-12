@@ -1,3 +1,9 @@
+Feb 12 2015 <shlomif@shlomifish.org> (Shlomi Fish)
+
+  Error.pm #0.17023
+  - Minimal version of Module-Build reduced to 0.280801
+    - https://rt.cpan.org/Public/Bug/Display.html?id=102062
+
 Jan 29 2014 <shlomif@shlomifish.org> (Shlomi Fish)
 
   Error.pm #0.17022
