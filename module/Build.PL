@@ -19,5 +19,18 @@ my $build = Test::Run::Builder->new(
     'license'  => "perl",
     'dist_abstract' => 'Error/exception handling in an OO-ish way',
     'dist_author'   => 'Shlomi Fish ( http://www.shlomifish.org/ )',
+    meta_merge =>
+    {
+        resources =>
+        {
+            repository => "https://bitbucket.org/shlomif/perl-error.pm",
+        },
+        keywords =>
+        [
+            "deprecated",
+            "exceptions",
+            "oop",
+        ],
+    },
 );
 $build->create_build_script;
