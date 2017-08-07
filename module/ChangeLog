@@ -1,5 +1,12 @@
 May 30 2015 <shlomif@shlomifish.org> (Shlomi Fish)
 
+  Error.pm #0.17025
+  - Fix 'use Error::Simple' overriding the $VERSION
+    - https://rt.cpan.org/Public/Bug/Display.html?id=122713
+    - Thanks to Matthew Horsfall for the report.
+
+May 30 2015 <shlomif@shlomifish.org> (Shlomi Fish)
+
   Error.pm #0.17024
   - Add link to the VCS repository in META.yml
 
