@@ -11,10 +11,6 @@ package Error::Simple;
 use strict;
 use warnings;
 
-use vars qw($VERSION);
-
-$VERSION = "0.17025";
-
 use Error;
 
 1;
