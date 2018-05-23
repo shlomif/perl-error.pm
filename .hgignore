@@ -1,7 +1,1 @@
-module/blib
-module/_build
-module/Build
-module/META.json
-module/META.yml
-module/MYMETA.json
-module/MYMETA.yml
+module/.build
