@@ -49,6 +49,6 @@ print "--\n",$x->stacktrace;
 
 unless(defined def()) {
     my $x = prior Error 'main';
-    print "--\n",0+$x,"\n",$x;
+    print "--\n",0+$x,"\n",$x; # 0+$x converts to Integer via "value" method
 }
 
