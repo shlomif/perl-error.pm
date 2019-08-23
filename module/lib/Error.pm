@@ -614,7 +614,7 @@ sub DEATH
         my $stackdepth = 0;
         while ( caller($stackdepth) =~ m/^Error(?:$|::)/ )
         {
-            $stackdepth++;
+            ++$stackdepth;
         }
 
         @callstack = gen_callstack( $stackdepth + 1 );
