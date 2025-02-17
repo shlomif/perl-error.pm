@@ -14,8 +14,6 @@ package Error;
 use strict;
 use warnings;
 
-use 5.004;
-
 use overload (
     '""'       => 'stringify',
     '0+'       => 'value',
@@ -594,9 +592,9 @@ sub DEATH
 {
     my ($e) = @_;
 
-    local $SIG{__DIE__} = $old_DIE if ( defined $old_DIE );
+    my $die = $old_DIE || sub { die @_ };
 
-    die @_ if $^S;
+    $die->(@_) if $^S;
 
     my ( $etype, $message, $location, @callstack );
     if ( ref($e) && $e->isa("Error") )
@@ -609,7 +607,7 @@ sub DEATH
     else
     {
         # Don't apply subsequent layer of message formatting
-        die $e if ( $e =~ m/^\nUnhandled perl error caught at toplevel:\n\n/ );
+        $die->($e) if ( $e =~ m/^\nUnhandled perl error caught at toplevel:\n\n/ );
         $etype = "perl error";
         my $stackdepth = 0;
         while ( caller($stackdepth) =~ m/^Error(?:$|::)/ )
@@ -638,15 +636,14 @@ sub DEATH
     # Do it this way in case there are no elements; we don't print a spurious \n
     my $callstack = join( "", map { "$_\n" } @callstack );
 
-    die
-"\nUnhandled $etype caught at toplevel:\n\n  $message\n\nThrown from: $location\n\nFull stack trace:\n\n$callstack\n";
+    $die->("\nUnhandled $etype caught at toplevel:\n\n  $message\n\nThrown from: $location\n\nFull stack trace:\n\n$callstack\n");
 }
 
 sub TAXES
 {
     my ($message) = @_;
 
-    local $SIG{__WARN__} = $old_WARN if ( defined $old_WARN );
+    my $warn = $old_WARN || sub { warn @_ };
 
     $message =~ s/ at .*? line \d+\.$//;
     chomp $message;
@@ -660,7 +657,7 @@ sub TAXES
     # Do it this way in case there are no elements; we don't print a spurious \n
     my $callstack = join( "", map { "$_\n" } @callstack );
 
-    warn "$message:\n$callstack";
+    $warn->("$message:\n$callstack");
 }
 
 sub import
